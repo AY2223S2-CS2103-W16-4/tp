@@ -257,13 +257,15 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
+Salespeople managing client contacts who prefer a CLI
+
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Users that want to log their sales funnel cycle and keep track of their leads. You can do it faster on a CLI with better NLP. Helps salesperson keep track of all the necessary details and set reminders/alerts, prioritise sales tasks
 
 
 ### User stories
