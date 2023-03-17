@@ -15,21 +15,36 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Industry;
+import seedu.address.model.person.JobTitle;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Occupation;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_GENDER = "girl";
     private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_COMPANY = "T@sleh";
+    private static final String INVALID_INDUSTRY = "@utomobile";
+    private static final String INVALID_OCCUPATION = "@gent";
+    private static final String INVALID_JOBTITLE = "5t@ff";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
+    private static final String VALID_GENDER = "female";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_COMPANY = "Tesleh";
+    private static final String VALID_INDUSTRY = "automobile";
+    private static final String VALID_OCCUPATION = "engineer";
+    private static final String VALID_JOBTITLE = "industrial engineer";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -193,4 +208,85 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseGender_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseGender((String) null));
+    }
+
+    @Test
+    public void parseGender_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseGender(INVALID_GENDER));
+    }
+
+    @Test
+    public void parseGender_validValue_throwsParseException() throws Exception {
+        Gender expectedGender = new Gender(VALID_GENDER);
+        assertEquals(expectedGender, ParserUtil.parseGender(VALID_GENDER));
+    }
+
+    @Test
+    public void parseCompany_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompany((String) null));
+    }
+
+    @Test
+    public void parseCompany_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCompany(INVALID_COMPANY));
+    }
+
+    @Test
+    public void parseCompany_validValue_throwsParseException() throws Exception {
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(VALID_COMPANY));
+    }
+
+    @Test
+    public void parseIndustry_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseIndustry((String) null));
+    }
+
+    @Test
+    public void parseIndustry_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIndustry(INVALID_INDUSTRY));
+    }
+
+    @Test
+    public void parseIndustry_validValue_throwsParseException() throws Exception {
+        Industry expectedIndustry = new Industry(VALID_INDUSTRY);
+        assertEquals(expectedIndustry, ParserUtil.parseIndustry(VALID_INDUSTRY));
+    }
+
+    @Test
+    public void parseOccupation_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseOccupation((String) null));
+    }
+
+    @Test
+    public void parseOccupation_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOccupation(INVALID_OCCUPATION));
+    }
+
+    @Test
+    public void parseOccupation_validValue_throwsParseException() throws Exception {
+        Occupation expectedOccupation = new Occupation(VALID_OCCUPATION);
+        assertEquals(expectedOccupation, ParserUtil.parseOccupation(VALID_OCCUPATION));
+    }
+
+    @Test
+    public void parseJobTitle_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseJobTitle((String) null));
+    }
+
+    @Test
+    public void parseJobTitle_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseJobTitle(INVALID_JOBTITLE));
+    }
+
+    @Test
+    public void parseJobTitle_validValue_throwsParseException() throws Exception {
+        JobTitle expectedJobTitle = new JobTitle(VALID_JOBTITLE);
+        assertEquals(expectedJobTitle, ParserUtil.parseJobTitle(VALID_JOBTITLE));
+    }
+
 }

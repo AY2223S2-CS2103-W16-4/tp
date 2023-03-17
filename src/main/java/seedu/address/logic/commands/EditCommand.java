@@ -2,8 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBTITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCUPATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -20,8 +25,13 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Industry;
+import seedu.address.model.person.JobTitle;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Occupation;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -39,8 +49,13 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_COMPANY + "COMPANY] "
+            + "[" + PREFIX_INDUSTRY + "INDUSTRY] "
+            + "[" + PREFIX_OCCUPATION + "OCCUPATION] "
+            + "[" + PREFIX_JOBTITLE + "JOBTITLE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -95,13 +110,19 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Company updateCompany = editPersonDescriptor.getCompany().orElse(personToEdit.getCompany());
+        Industry updatedIndustry = editPersonDescriptor.getIndustry().orElse(personToEdit.getIndustry());
+        Occupation updatedOccupation = editPersonDescriptor.getOccupation().orElse(personToEdit.getOccupation());
+        JobTitle updatedJobTitle = editPersonDescriptor.getJobTitle().orElse(personToEdit.getJobTitle());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Remark updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags);
+        return new Person(updatedName, updatedGender, updatedPhone, updatedEmail, updateCompany, updatedIndustry,
+                updatedOccupation, updatedJobTitle, updatedAddress, updatedRemark, updatedTags);
     }
 
     @Override
@@ -128,8 +149,13 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
+        private Gender gender;
         private Phone phone;
         private Email email;
+        private Company company;
+        private Industry industry;
+        private Occupation occupation;
+        private JobTitle jobTitle;
         private Address address;
         private Set<Tag> tags;
 
@@ -141,8 +167,13 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
+            setGender(toCopy.gender);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setCompany(toCopy.company);
+            setIndustry(toCopy.industry);
+            setOccupation(toCopy.occupation);
+            setJobTitle(toCopy.jobTitle);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -151,7 +182,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, gender, phone, email, company, industry,
+                    occupation, jobTitle, address, tags);
         }
 
         public void setName(Name name) {
@@ -160,6 +192,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+
+        public Optional<Gender> getGender() {
+            return Optional.ofNullable(gender);
         }
 
         public void setPhone(Phone phone) {
@@ -176,6 +216,38 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setCompany(Company company) {
+            this.company = company;
+        }
+
+        public Optional<Company> getCompany() {
+            return Optional.ofNullable(company);
+        }
+
+        public void setIndustry(Industry industry) {
+            this.industry = industry;
+        }
+
+        public Optional<Industry> getIndustry() {
+            return Optional.ofNullable(industry);
+        }
+
+        public void setOccupation(Occupation occupation) {
+            this.occupation = occupation;
+        }
+
+        public Optional<Occupation> getOccupation() {
+            return Optional.ofNullable(occupation);
+        }
+
+        public void setJobTitle(JobTitle jobTitle) {
+            this.jobTitle = jobTitle;
+        }
+
+        public Optional<JobTitle> getJobTitle() {
+            return Optional.ofNullable(jobTitle);
         }
 
         public void setAddress(Address address) {
@@ -220,7 +292,12 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
+                    && getGender().equals(e.getGender())
                     && getEmail().equals(e.getEmail())
+                    && getCompany().equals(e.getCompany())
+                    && getIndustry().equals(e.getIndustry())
+                    && getOccupation().equals(e.getOccupation())
+                    && getJobTitle().equals(e.getJobTitle())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

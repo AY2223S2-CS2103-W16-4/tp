@@ -13,10 +13,20 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindTagCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.logic.commands.StatusCommand;
+import seedu.address.logic.commands.txncommands.AddTxnCommand;
+import seedu.address.logic.commands.txncommands.DeleteTxnCommand;
+import seedu.address.logic.commands.txncommands.EditTxnCommand;
+import seedu.address.logic.commands.txncommands.ListTxnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.txncommandparser.AddTxnCommandParser;
+import seedu.address.logic.parser.txncommandparser.DeleteTxnCommandParser;
+import seedu.address.logic.parser.txncommandparser.EditTxnCommandParser;
+
 
 /**
  * Parses user input.
@@ -60,6 +70,9 @@ public class AddressBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case FindTagCommand.COMMAND_WORD:
+            return new FindTagCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -71,6 +84,21 @@ public class AddressBookParser {
 
         case RemarkCommand.COMMAND_WORD:
             return new RemarkCommandParser().parse(arguments);
+
+        case StatusCommand.COMMAND_WORD:
+            return new StatusCommandParser().parse(arguments);
+
+        case AddTxnCommand.COMMAND_WORD:
+            return new AddTxnCommandParser().parse(arguments);
+
+        case DeleteTxnCommand.COMMAND_WORD:
+            return new DeleteTxnCommandParser().parse(arguments);
+
+        case EditTxnCommand.COMMAND_WORD:
+            return new EditTxnCommandParser().parse(arguments);
+
+        case ListTxnCommand.COMMAND_WORD:
+            return new ListTxnCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

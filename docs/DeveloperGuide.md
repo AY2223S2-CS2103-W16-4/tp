@@ -287,14 +287,60 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
+**Use case: Add a person**
+
+**MSS**
+
+1.  User adds a person
+2.  AddressBook adds the person to contact list
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. AddressBook detects an error in the entered data.
+   * 1a1. AddressBook requests for the correct data.
+   * 1a2. User enters new data.
+   * Steps 1a1-1a2 are repeated until the data entered is correct.
+   * Use case resumes from step 2.
+
+  Use case ends.
+
+**Use case: Edit a person**
+
+**MSS**
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to edit a specific person in the list
+4.  AddressBook edits the person
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. AddressBook detects an error in the entered data.
+   * 3a1. AddressBook requests for the correct data.
+   * 3a2. User enters new data.
+   * Steps 3a1-3a2 are repeated until the data entered is correct.
+   * Use case resumes from step 4.
+
+  Use case ends.
+
 **Use case: Delete a person**
 
 **MSS**
 
 1.  User requests to list persons
 2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+3.  User requests to delete a specific person in the list 
+4.  AddressBook displays a confirmation message
+5.  User confirms to delete the specific person in the list
+6.  AddressBook deletes the person
 
     Use case ends.
 

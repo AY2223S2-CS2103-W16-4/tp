@@ -13,6 +13,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.status.LeadStatus;
+import seedu.address.model.person.status.LeadStatusName;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -48,6 +50,12 @@ public class PersonTest {
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(BOB.isSamePerson(editedBob));
+    }
+
+    @Test
+    public void defaultLeadStatusIsUncontacted() {
+        Person person = new PersonBuilder().build();
+        assertTrue(person.getStatus().equals(new LeadStatus(LeadStatusName.UNCONTACTED.getLabel())));
     }
 
     @Test

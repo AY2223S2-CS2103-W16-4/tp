@@ -1,15 +1,25 @@
 {
   "persons": [ {
     "name": "Alice Pauline",
+    "gender": "female",
     "phone": "94351253",
     "email": "alice@example.com",
+    "company": "company",
+    "industry": "industry",
+    "occupation": "occupation",
+    "jobTitle": "job title",
     "address": "123, Jurong West Ave 6, #08-111",
     "remark": "",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
+    "gender":  "female",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "company": "company",
+    "industry": "industry",
+    "occupation": "occupation",
+    "jobTitle": "job title",
     "address": "4th street",
     "remark" : ""
   } ]

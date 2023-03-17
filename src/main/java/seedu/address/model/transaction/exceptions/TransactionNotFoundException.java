@@ -1,4 +1,7 @@
 package seedu.address.model.transaction.exceptions;
 
-public class TransactionNotFoundException {
+/**
+ * Signals that the operation is unable to find the specified transaction.
+ */
+public class TransactionNotFoundException extends RuntimeException {
 }

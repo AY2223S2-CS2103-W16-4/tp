@@ -56,6 +56,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replace the contents of the transaction list with {@code transactions}.
+     * {@code transactions} must not contain duplicate transactions.
+     */
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions.setTransactions(transactions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -64,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //================= person-level operations ==================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -101,37 +109,56 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //================= transaction-level operations ==================================
 
-    public void hasTransaction(Transaction transaction) {
-        // implementation here
+    /**
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the sales book.
+     */
+    public boolean hasTransaction(Transaction transaction) {
+        requireNonNull(transaction);
+        return transactions.contains(transaction);
     }
 
     /**
      * Adds a given transaction to the transaction list.
      * A transaction must have an association with a Person.
      * A person may have zero to many transactions.
+     *
      * @param t
      */
-    public void addTransaction(Transaction t, Person owner) {
-        requireAllNonNull(t, owner);
-
-        personTransactionRelation.addRelation(t, owner);
+    public void addTransaction(Transaction t) {
+        requireAllNonNull(t);
         transactions.add(t);
+
+        //personTransactionRelation.addRelation(t);
+        //TODO: Add customer-transaction relationship
     }
 
-    public void setTransaction(Transaction transaction) {
-        // implementation here
+    /**
+     * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * {@code target} must exist in the sales book.
+     * The transaction identity of {@code editedTransaction} must not be the same as another existing
+     * transaction in the sales book.
+     */
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireNonNull(editedTransaction);
+        transactions.setTransaction(target, editedTransaction);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
     public void removeTransaction(Transaction key) {
-        // implementation here
+        transactions.remove(key);
     }
 
-    //// util methods
+    //================= util methods ==================================
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons\n"
+                + transactions.asUnmodifiableObservableList().size() + "transactions";
         // TODO: refine later
     }
 
@@ -149,11 +176,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && transactions.equals(((AddressBook) other).transactions));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
-    }
+        return persons.hashCode() + transactions.hashCode();
+    } //TODO: check later
 }

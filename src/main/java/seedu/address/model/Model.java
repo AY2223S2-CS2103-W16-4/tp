@@ -78,9 +78,9 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    void hasTransaction(Transaction transaction);
+    boolean hasTransaction(Transaction transaction);
 
-    void addTransaction(Transaction transaction, Person owner);
+    void addTransaction(Transaction transaction);
 
     void deleteTransaction(Transaction transaction);
 
@@ -99,7 +99,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}
-     */
-    void updateFilteredTransactionsList(Predicate<Transaction> predicate);
+    * Updates the filter of the filtered transaction list to filter by the given {@code predicate}
+    */
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
 }

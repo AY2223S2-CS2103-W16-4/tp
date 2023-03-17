@@ -1,0 +1,39 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalTransactions#getTypicalAddressBook()",
+  "transactions" : [ {
+    "description": "First transaction",
+    "value": "100",
+    "status": "open",
+    "owner": "Alice Pauline"
+  }, {
+    "description": "Second test transaction",
+    "value": "1002321.20",
+    "status": "open",
+    "owner": "Benson Meier"
+  }, {
+    "description": "Third test transaction",
+    "value": "100.20",
+    "status": "closed",
+    "owner": "Carl Kurz"
+  }, {
+    "description": "Forth test transaction",
+    "value": "123123123",
+    "status": "closed",
+    "owner": "Daniel Meier"
+  }, {
+    "description": "Fifth test transaction",
+    "value": "0.123131",
+    "status": "closed",
+    "owner": "Elle Meyer"
+  }, {
+    "description": "Sixth test transaction",
+    "value": "10000.20",
+    "status": "closed",
+    "owner": "Fiona Kunz"
+  }, {
+    "description": "Seventh test transaction",
+    "value": "10",
+    "status": "open",
+    "owner": "George Best"
+  } ]
+}

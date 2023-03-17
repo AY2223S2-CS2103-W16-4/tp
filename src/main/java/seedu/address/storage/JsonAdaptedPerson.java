@@ -11,8 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Industry;
+import seedu.address.model.person.JobTitle;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Occupation;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
@@ -26,8 +31,13 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String name;
+    private final String gender;
     private final String phone;
     private final String email;
+    private final String company;
+    private final String industry;
+    private final String occupation;
+    private final String jobTitle;
     private final String address;
     private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -36,12 +46,24 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("gender") String gender,
+            @JsonProperty("phone") String phone,
+            @JsonProperty("email") String email,
+            @JsonProperty("address") String address,
+            @JsonProperty("company") String company,
+            @JsonProperty("industry") String industry,
+            @JsonProperty("occupation") String occupation,
+            @JsonProperty("jobTitle") String jobTitle,
+            @JsonProperty("remark") String remark,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
+        this.gender = gender;
         this.phone = phone;
         this.email = email;
+        this.company = company;
+        this.industry = industry;
+        this.occupation = occupation;
+        this.jobTitle = jobTitle;
         this.address = address;
         this.remark = remark;
         if (tagged != null) {
@@ -54,8 +76,13 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
+        gender = source.getGender().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        company = source.getCompany().value;
+        industry = source.getIndustry().value;
+        occupation = source.getOccupation().value;
+        jobTitle = source.getJobTitle().value;
         address = source.getAddress().value;
         remark = source.getRemark().value;
         tagged.addAll(source.getTags().stream()
@@ -82,6 +109,14 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
+        if (gender == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
+        }
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        final Gender modelGender = new Gender(gender);
+
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
@@ -98,6 +133,41 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (company == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
+        }
+        if (!Company.isValidCompanyName(company)) {
+            throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS);
+        }
+        final Company modelCompany = new Company(company);
+
+        if (industry == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Industry.class.getSimpleName()));
+        }
+        if (!Industry.isValidIndustry(industry)) {
+            throw new IllegalValueException(Industry.MESSAGE_CONSTRAINTS);
+        }
+        final Industry modelIndustry = new Industry(industry);
+
+        if (occupation == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Occupation.class.getSimpleName()));
+        }
+        if (!Occupation.isValidOccupation(occupation)) {
+            throw new IllegalValueException(Occupation.MESSAGE_CONSTRAINTS);
+        }
+        final Occupation modelOccupation = new Occupation(occupation);
+
+        if (jobTitle == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    JobTitle.class.getSimpleName()));
+        }
+        if (!JobTitle.isValidJobTitle(jobTitle)) {
+            throw new IllegalValueException(JobTitle.MESSAGE_CONSTRAINTS);
+        }
+        final JobTitle modelJobTitle = new JobTitle(jobTitle);
+
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -113,6 +183,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        return new Person(modelName, modelGender, modelPhone, modelEmail, modelCompany, modelIndustry,
+                modelOccupation, modelJobTitle, modelAddress, modelRemark, modelTags);
     }
 }

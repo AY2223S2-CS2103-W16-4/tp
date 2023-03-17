@@ -66,7 +66,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'salespunch.jar'
 }
 
 defaultTasks 'clean', 'test'

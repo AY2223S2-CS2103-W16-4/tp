@@ -350,3 +350,12 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.cell_lead_status_label {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+}
+

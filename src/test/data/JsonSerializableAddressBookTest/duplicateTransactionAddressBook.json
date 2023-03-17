@@ -1,0 +1,13 @@
+{
+  "transactions": [ {
+    "description": "First transaction",
+    "value": "100",
+    "status": "open",
+    "owner": "Alice Pauline"
+  }, {
+    "description": "First transaction",
+    "value": "100",
+    "status": "open",
+    "owner": "Alice Pauline"
+  } ]
+}
